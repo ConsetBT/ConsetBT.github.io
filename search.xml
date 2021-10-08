@@ -1,32 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
-<search>
-  <entry>
-    <title>新的诞生</title>
-    <url>/posts/50110/</url>
-    <content><![CDATA[<h1 id="本博客的诞生"><a href="#本博客的诞生" class="headerlink" title="本博客的诞生"></a>本博客的诞生</h1><p>这个博客说实话，多少有些来之不易，经过两天的坚持不懈、四处摸索，也是完成了这个博客的搭建</p>
-<span id="more"></span>
-
-<ul>
-<li><strong>你们可能会问道，为什么要搭建这个博客</strong></li>
-</ul>
-<p> &lt;-&gt; 一开始的决定，本是打算把自己初学的 C 相关的代码放在博客上，但后来在搭建的过程中，对博客有了些了解，便决定将这个博客作为自己分享自己学习的过程与学习成果的平台。</p>
-<ul>
-<li><strong>未来对这个博客有什么打算</strong></li>
-</ul>
-<p> &lt;-&gt; 自己会坚持把他维护下去，虽然技术不好，但也会尽全力</p>
-<p> &lt;-&gt; 有了新的学习成功也会尽快分享到这个博客</p>
-<ul>
-<li><strong>最后有什么想说的吗</strong></li>
-</ul>
-<p> &lt;-&gt; 不仅对这个博客，也是对自己所说</p>
-<pre><code>就像是初学代码时第一个程序那样
-</code></pre>
-<figure class="highlight plaintext"><table><tbody><tr><td class="code"><pre><span class="line">"Hello World"</span><br></pre></td></tr></tbody></table></figure>]]></content>
+<search> 
+  
+  
+    
+    <entry>
+      <title>新的诞生</title>
+      <link href="/posts/50110/"/>
+      <url>/posts/50110/</url>
+      
+        <content type="html"><![CDATA[<h1 id="本博客的诞生"><a href="#本博客的诞生" class="headerlink" title="本博客的诞生"></a>本博客的诞生</h1><p>这个博客说实话，多少有些来之不易，经过两天的坚持不懈、四处摸索，也是完成了这个博客的搭建</p><span id="more"></span><ul><li><strong>你们可能会问道，为什么要搭建这个博客</strong></li></ul><p> &lt;-&gt; 一开始的决定，本是打算把自己初学的 C 相关的代码放在博客上，但后来在搭建的过程中，对博客有了些了解，便决定将这个博客作为自己分享自己学习的过程与学习成果的平台。</p><ul><li><strong>未来对这个博客有什么打算</strong></li></ul><p> &lt;-&gt; 自己会坚持把他维护下去，虽然技术不好，但也会尽全力</p><p> &lt;-&gt; 有了新的学习成功也会尽快分享到这个博客</p><ul><li><strong>最后有什么想说的吗</strong></li></ul><p> &lt;-&gt; 不仅对这个博客，也是对自己所说</p><pre><code>就像是初学代码时第一个程序那样</code></pre><figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">"Hello World"</span><br></pre></td></tr></tbody></table></figure>]]></content>
+      
+      
       <categories>
-        <category>欢迎</category>
+          
+          <category> 欢迎 </category>
+          
       </categories>
-      <tags>
-        <tag>欢迎</tag>
-      </tags>
-  </entry>
+      
+      
+        <tags>
+            
+            <tag> 欢迎 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+  
+  
 </search>
