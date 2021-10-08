@@ -29,4 +29,135 @@
         <tag>欢迎</tag>
       </tags>
   </entry>
+  <entry>
+    <title>Homework-temporary</title>
+    <url>/posts/5775/</url>
+    <content><![CDATA[<h1 id="Homework"><a href="#Homework" class="headerlink" title="Homework"></a>Homework</h1><span id="more"></span>
+
+<p>homework</p>
+<pre><code> #define _CRT_INTERNAL_SCANF_LEGACY_WIDE_SPECIFIERS 
+ #include&lt;stdio.h&gt;
+ #define Otsuki 31
+ #define Satsuki 30
+ #define Group 1,826//1闰年+3平年
+ //#define L_Feb 29
+ //#define A_Feb 28
+ //#define Leap 366
+ //#define Average 365
+ 
+ void menu()
+ {
+     printf("Calculate the time difference between two dates.");
+ }
+ 
+ int operation()
+ {
+     int year_1, mouth_1, day_1, total_1, fab_1;
+     int year_2, mouth_2, day_2, total_2, fab_2;
+     int storange_1 = 0,storange_2=0;//记录第一年到年底天数，第二年到年初天数
+     printf("Please in put the first date:(Format:Year/Mouth/Day)");
+     scanf("&amp;d/&amp;d/&amp;d", &amp;year_1, &amp;mouth_1, &amp;day_1);
+     getchar();
+     printf("Please in put the second data:(Format:Year/Mouth/Day)");
+     scanf("&amp;d/&amp;d/&amp;d", &amp;year_2, &amp;mouth_2, &amp;day_2);
+     getchar();
+ 
+     if (year_1 % 400 == 0 || year_1 % 4 == 0 &amp;&amp; year_1 % 100 != 0)
+     {
+         fab_1 = 29;
+         total_1 = 366;
+     }
+     else
+     {
+         fab_1 = 28;
+         total_1 = 365;
+     }
+ 
+     if (year_2 % 400 == 0 || year_2 % 4 == 0 &amp;&amp; year_2 % 100 != 0)
+     {
+         fab_2 = 29;
+         total_2 = 366;
+     }
+     else
+     {
+         fab_2 = 28;
+         total_2 = 365;
+     }
+ 
+     switch (mouth_1)
+     {
+     case 12:
+     case 11:
+         storange_1 = storange_1 + Otsuki;
+     case 10:
+         storange_1 = storange_1 + Satsuki;
+     case 9:
+         storange_1 = storange_1 + Otsuki;
+     case 8:
+         storange_1 = storange_1 + Otsuki;
+     case 7:
+         storange_1 = storange_1 + Satsuki;
+     case 6:
+         storange_1 = storange_1 + Otsuki;
+     case 5:
+         storange_1 = storange_1 + Satsuki;
+     case 4:
+         storange_1 = storange_1 + Otsuki;
+     case 3:
+         storange_1 = storange_1 + fab_1;
+     case 2:
+         storange_1 = storange_1 + Otsuki;
+     case 1:
+         storange_1 = day_1;
+         storange_1 = total_1 - storange_1;
+     }
+ 
+     switch (mouth_2)
+     {
+     case 12:
+     case 11:
+         storange_2 = storange_2 + Otsuki;
+     case 10:
+         storange_2 = storange_2 + Satsuki;
+     case 9:
+         storange_2 = storange_2 + Otsuki;
+     case 8:
+         storange_2 = storange_2 + Otsuki;
+     case 7:
+         storange_2 = storange_2 + Satsuki;
+     case 6:
+         storange_2 = storange_2 + Otsuki;
+     case 5:
+         storange_2 = storange_2 + Satsuki;
+     case 4:
+         storange_2 = storange_2 + Otsuki;
+     case 3:
+         storange_2 = storange_2 + fab_2;
+     case 2:
+         storange_2 = storange_2 + Otsuki;
+     case 1:
+         storange_2 = day_2;
+     }
+     
+     int count;
+     count = year_2 - year_1 - 1;
+ 
+ }
+ 
+ int main()
+ {
+     menu();
+     getchar();
+ 
+     return 0;
+ }
+</code></pre>
+]]></content>
+      <categories>
+        <category>C/C++</category>
+      </categories>
+      <tags>
+        <tag>作业</tag>
+      </tags>
+  </entry>
 </search>
