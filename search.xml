@@ -30,128 +30,56 @@
       </tags>
   </entry>
   <entry>
-    <title>Homework-temporary</title>
+    <title>计算跨年两日期相隔天数</title>
     <url>/posts/5775/</url>
-    <content><![CDATA[<h1 id="Homework"><a href="#Homework" class="headerlink" title="Homework"></a>Homework</h1><span id="more"></span>
+    <content><![CDATA[<blockquote>
+<p>题目来自 10/5 switch 语句讲解<br>该程序目前还<strong>不能</strong>进行同年计算，后期会进行更新</p>
+</blockquote>
+<span id="more"></span>
+<h1 id="程序设计"><a href="#程序设计" class="headerlink" title="程序设计"></a>程序设计</h1><p>首先面对这个题目，要对改题目进行分析<br>【跨年】、【相隔天数】两个关键词</p>
+<ul>
+<li>跨年<br>两年相隔年数我们可以这样计算 <figure class="highlight plaintext"><table><tbody><tr><td class="code"><pre><span class="line">year_2 - year_1 - 1</span><br></pre></td></tr></tbody></table></figure>
+<ul>
+<li>举例<br>  2021/10/8 与 2022/1/1 两年间间隔便为 0<br>图片示例<br><img data-src="https://s.pc.qq.com/tousu/img/20211008/8359157_1633681655.jpg" alt="_1"></li>
+</ul>
+</li>
+<li>相隔天数 (count)<br>上面我们计算了两年间的间隔，接下来计算相隔天数<br>计算相隔天数相对较麻烦，首先需要判断<strong>年份 1 到年底的天数</strong>，<strong>年份二月初到设置的日期天数</strong><br>还要进行判断两年之间间隔了几个闰年和平年 <figure class="highlight plaintext"><table><tbody><tr><td class="code"><pre><span class="line">年份1到年底的天数 + 年份二月初到设置的日期天数 + n * 闰年 + n * 平年</span><br><span class="line">（storage_1）				（storage_2）</span><br></pre></td></tr></tbody></table></figure></li>
+<li>相隔年数 &lt; 4<br>  我采用的方法是，使用 <strong>for</strong> 语句进行循环判断，对 year_1 ++，判断是否为<strong>闰年</strong>，若是则 + 366, 反之 365，直到 year_1 == year_2。最后加上 storage_1 和 storage_2。</li>
+<li>相隔年数 &gt;= 4<br>  我采用的是<strong>循环组</strong>的思想，首先我们知道，<strong>每 4 年</strong>出现一次闰年，这样我们<strong>每四年</strong>就是一个<strong>循环组</strong>，一个<strong>循环组</strong> (Group)，有 <strong>1 个闰年</strong> (Leap) 和 <strong>3 个平年</strong> (Average)，总共是 <strong>1461</strong> 天。<br>之后我们对相隔年数进行 / 4, 和 % 4 处理 <figure class="highlight ini"><table><tbody><tr><td class="code"><pre><span class="line"><span class="attr">cycle</span> = count / <span class="number">4</span><span class="comment">;			//几个循环组</span></span><br><span class="line"><span class="attr">remain</span> = count % <span class="number">4</span><span class="comment">;			 //余数</span></span><br></pre></td></tr></tbody></table></figure>
+接下来计算天数<div class="note warning"><h4 id="注意"><a href="#注意" class="headerlink" title="注意"></a>注意</h4><p><strong>Warning</strong> 余数的处理，不只是简单的用 <em>remain</em> * Average<br>         下面的处理方法可以自行尝试<br>         若 <em>year_2</em> 是平年则 remain * Average<br>         若 <em>year_2</em> 是闰年则 (remain - 1) * Average + Leap *(remain - 1 要大于 0，若为 0 则只加 Leap 即可)
+    </p>
+</div>
+最后加上 cycle * Group 和 storage_1 + storage_2。</li>
+</ul>
+<h1 id="代码分层解析"><a href="#代码分层解析" class="headerlink" title="代码分层解析"></a>代码分层解析</h1><ul>
+<li><p>初始设置</p>
+<p>  首先我们先创建一些常量</p>
+<figure class="highlight c++"><table><tbody><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">define</span> Otsuki 31			<span class="comment">// 大月31天</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> Satsuki 30			<span class="comment">//小月30天</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> Group 1461			<span class="comment">//1闰年+3平年</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> Leap 366			<span class="comment">//闰年 366天</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> Average 365			<span class="comment">//平年 365天</span></span></span><br></pre></td></tr></tbody></table></figure>
+<p> 随后定义必要的变量</p>
+<figure class="highlight apache"><table><tbody><tr><td class="code"><pre><span class="line"><span class="attribute">int</span> year_<span class="number">1</span>, mouth_<span class="number">1</span>, day_<span class="number">1</span>, total_<span class="number">1</span>, fab_<span class="number">1</span>;		// 年<span class="number">1</span> 月<span class="number">1</span> 日<span class="number">1</span> 本年总天数 <span class="number">2</span>月天数 </span><br><span class="line"><span class="attribute">int</span> year_<span class="number">2</span>, mouth_<span class="number">2</span>, day_<span class="number">2</span>, total_<span class="number">2</span>, fab_<span class="number">2</span>;		// 年<span class="number">2</span> 月<span class="number">2</span> 日<span class="number">2</span> 本年总天数 <span class="number">2</span>月天数 </span><br><span class="line"><span class="attribute">int</span> storage_<span class="number">1</span> = <span class="number">0</span>, storage_<span class="number">2</span> = <span class="number">0</span>;				//记录第一年到年底天数，第二年到年初天数</span><br><span class="line"><span class="attribute">long</span> count, result;								// 两年间隔  间隔天数 </span><br><span class="line"><span class="attribute">int</span> cycle = <span class="number">0</span>, remain = <span class="number">0</span>;						//每<span class="number">4</span>年循环组  余数 </span><br></pre></td></tr></tbody></table></figure></li>
+<li><p>程序主体</p>
+<p>   然后使用 <strong>printf</strong> 语句 和 <strong>scanf</strong> 语句 提示而且让用户去输入两个日期</p>
+<figure class="highlight lisp"><table><tbody><tr><td class="code"><pre><span class="line">printf(<span class="string">"Please in put the first date:(Format:Year/Mouth/Day)\n"</span>)<span class="comment">;</span></span><br><span class="line">scanf(<span class="string">"%d/%d/%d"</span>, <span class="symbol">&amp;year_1</span>, <span class="symbol">&amp;mouth_1</span>, <span class="symbol">&amp;day_1</span>)<span class="comment">;</span></span><br><span class="line">getchar()<span class="comment">;</span></span><br><span class="line">printf(<span class="string">"Please in put the second data:(Format:Year/Mouth/Day)\n"</span>)<span class="comment">;</span></span><br><span class="line">scanf(<span class="string">"%d/%d/%d"</span>, <span class="symbol">&amp;year_2</span>, <span class="symbol">&amp;mouth_2</span>, <span class="symbol">&amp;day_2</span>)<span class="comment">;</span></span><br></pre></td></tr></tbody></table></figure>
+<p>   之后判断 <strong>year_1</strong> 和 <strong>year_2</strong> 是否为闰年，并将相关数据存进相关变量中</p>
+<figure class="highlight c++"><table><tbody><tr><td class="code"><pre><span class="line"><span class="comment">//判断年1是否为闰年 </span></span><br><span class="line">    <span class="keyword">if</span> (year_1 % <span class="number">400</span> == <span class="number">0</span> || year_1 % <span class="number">4</span> == <span class="number">0</span> &amp;&amp; year_1 % <span class="number">100</span> != <span class="number">0</span>)</span><br><span class="line">    {</span><br><span class="line">        fab_1 = <span class="number">29</span>;</span><br><span class="line">        total_1 = <span class="number">366</span>;</span><br><span class="line">    }</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">    {</span><br><span class="line">        fab_1 = <span class="number">28</span>;</span><br><span class="line">        total_1 = <span class="number">365</span>;</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="comment">//判断年2是否为闰年 </span></span><br><span class="line">    <span class="keyword">if</span> (year_2 % <span class="number">400</span> == <span class="number">0</span> || year_2 % <span class="number">4</span> == <span class="number">0</span> &amp;&amp; year_2 % <span class="number">100</span> != <span class="number">0</span>)</span><br><span class="line">    {</span><br><span class="line">        fab_2 = <span class="number">29</span>;</span><br><span class="line">        total_2 = <span class="number">366</span>;</span><br><span class="line">    }</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">    {</span><br><span class="line">        fab_2 = <span class="number">28</span>;</span><br><span class="line">        total_2 = <span class="number">365</span>;</span><br><span class="line">    }</span><br></pre></td></tr></tbody></table></figure>
+<p>   使用 <strong>switch</strong> 语句进行计算<strong>年份 1 到年底的天数</strong>，<strong>年份二月初到设置的日期天数</strong></p>
+<blockquote>
+<p><strong>switch</strong> 语句语法</p>
+<figure class="highlight c++"><table><tbody><tr><td class="code"><pre><span class="line">&gt;<span class="built_in"><span class="keyword">switch</span></span>(整型变量)</span><br><span class="line">&gt;{</span><br><span class="line"><span class="keyword">case</span> <span class="number">1</span>:....</span><br><span class="line">deafult:...</span><br><span class="line">&gt;}</span><br></pre></td></tr></tbody></table></figure>
+</blockquote>
+   <figure class="highlight c++"><table><tbody><tr><td class="code"><pre><span class="line"><span class="comment">//判断到年底剩余时间 </span></span><br><span class="line">    <span class="built_in"><span class="keyword">switch</span></span> (mouth_1)</span><br><span class="line">    {</span><br><span class="line">    <span class="keyword">case</span> <span class="number">12</span>:</span><br><span class="line">    <span class="keyword">case</span> <span class="number">11</span>:</span><br><span class="line">        storage_1 = storage_1 + Otsuki;</span><br><span class="line">    <span class="keyword">case</span> <span class="number">10</span>:</span><br><span class="line">        storage_1 = storage_1 + Satsuki;</span><br><span class="line">    <span class="keyword">case</span> <span class="number">9</span>:</span><br><span class="line">        storage_1 = storage_1 + Otsuki;</span><br><span class="line">    <span class="keyword">case</span> <span class="number">8</span>:</span><br><span class="line">        storage_1 = storage_1 + Otsuki;</span><br><span class="line">    <span class="keyword">case</span> <span class="number">7</span>:</span><br><span class="line">        storage_1 = storage_1 + Satsuki;</span><br><span class="line">    <span class="keyword">case</span> <span class="number">6</span>:</span><br><span class="line">        storage_1 = storage_1 + Otsuki;</span><br><span class="line">    <span class="keyword">case</span> <span class="number">5</span>:</span><br><span class="line">        storage_1 = storage_1 + Satsuki;</span><br><span class="line">    <span class="keyword">case</span> <span class="number">4</span>:</span><br><span class="line">        storage_1 = storage_1 + Otsuki;</span><br><span class="line">    <span class="keyword">case</span> <span class="number">3</span>:</span><br><span class="line">        storage_1 = storage_1 + fab_1;</span><br><span class="line">    <span class="keyword">case</span> <span class="number">2</span>:</span><br><span class="line">        storage_1 = storage_1 + Otsuki;</span><br><span class="line">    <span class="keyword">case</span> <span class="number">1</span>:</span><br><span class="line">        storage_1 = storage_1 + day_1;</span><br><span class="line">        storage_1 = total_1 - storage_1;</span><br><span class="line">    }</span><br><span class="line">    <span class="comment">//判断到年初有几天 </span></span><br><span class="line">    <span class="built_in"><span class="keyword">switch</span></span> (mouth_2)</span><br><span class="line">    {</span><br><span class="line">    <span class="keyword">case</span> <span class="number">12</span>:</span><br><span class="line">    <span class="keyword">case</span> <span class="number">11</span>:</span><br><span class="line">        storage_2 = storage_2 + Otsuki;</span><br><span class="line">    <span class="keyword">case</span> <span class="number">10</span>:</span><br><span class="line">        storage_2 = storage_2 + Satsuki;</span><br><span class="line">    <span class="keyword">case</span> <span class="number">9</span>:</span><br><span class="line">        storage_2 = storage_2 + Otsuki;</span><br><span class="line">    <span class="keyword">case</span> <span class="number">8</span>:</span><br><span class="line">        storage_2 = storage_2 + Otsuki;</span><br><span class="line">    <span class="keyword">case</span> <span class="number">7</span>:</span><br><span class="line">        storage_2 = storage_2 + Satsuki;</span><br><span class="line">    <span class="keyword">case</span> <span class="number">6</span>:</span><br><span class="line">        storage_2 = storage_2 + Otsuki;</span><br><span class="line">    <span class="keyword">case</span> <span class="number">5</span>:</span><br><span class="line">        storage_2 = storage_2 + Satsuki;</span><br><span class="line">    <span class="keyword">case</span> <span class="number">4</span>:</span><br><span class="line">        storage_2 = storage_2 + Otsuki;</span><br><span class="line">    <span class="keyword">case</span> <span class="number">3</span>:</span><br><span class="line">        storage_2 = storage_2 + fab_2;</span><br><span class="line">    <span class="keyword">case</span> <span class="number">2</span>:</span><br><span class="line">        storage_2 = storage_2 + Otsuki;</span><br><span class="line">    <span class="keyword">case</span> <span class="number">1</span>:</span><br><span class="line">        storage_2 = storage_2 + day_2;</span><br><span class="line">    }</span><br></pre></td></tr></tbody></table></figure>
+<p>   下面是 **count &lt; 4 ** 情况</p>
+   <figure class="highlight c++"><table><tbody><tr><td class="code"><pre><span class="line"><span class="keyword">for</span> (count = year_2 - year_1 - <span class="number">1</span>; count &lt; <span class="number">4</span>; year_1++)</span><br><span class="line">{</span><br><span class="line">    <span class="keyword">if</span> (year_1 == year_2)</span><br><span class="line">    {</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">    }</span><br><span class="line">    <span class="keyword">if</span> (year_1 % <span class="number">400</span> == <span class="number">0</span> || year_1 % <span class="number">4</span> == <span class="number">0</span> &amp;&amp; year_1 % <span class="number">100</span> != <span class="number">0</span>)</span><br><span class="line">    {</span><br><span class="line">        result = result + Leap;</span><br><span class="line">    }</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">    {</span><br><span class="line">        result = result + Average;</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">}</span><br><span class="line"></span><br></pre></td></tr></tbody></table></figure>
+<p>   <strong>count &gt;= 4</strong></p>
+   <figure class="highlight c++"><table><tbody><tr><td class="code"><pre><span class="line"><span class="keyword">if</span> (count &gt;= <span class="number">4</span>)</span><br><span class="line">   {</span><br><span class="line">       cycle = count / <span class="number">4</span>;</span><br><span class="line">       remain = count % <span class="number">4</span>;</span><br><span class="line">       <span class="built_in">printf</span>(<span class="string">"%d,%d,%d,%d\n"</span>, cycle, remain, storage_1, storage_2);</span><br><span class="line">       <span class="keyword">if</span> (year_2 % <span class="number">400</span> == <span class="number">0</span> || year_2 % <span class="number">4</span> == <span class="number">0</span> &amp;&amp; year_2 % <span class="number">100</span> != <span class="number">0</span>)</span><br><span class="line">       {</span><br><span class="line">           <span class="keyword">if</span> (remain - <span class="number">1</span> &gt; <span class="number">0</span>)</span><br><span class="line">           {</span><br><span class="line">               result = cycle * Group + (remain - <span class="number">1</span>) * Average + Leap;</span><br><span class="line">           }</span><br><span class="line">           <span class="keyword">else</span></span><br><span class="line">           {</span><br><span class="line">               result = cycle * Group + Leap;</span><br><span class="line">           }</span><br><span class="line">       }</span><br><span class="line">       <span class="keyword">else</span></span><br><span class="line">       {</span><br><span class="line">           result = cycle * Group + remain * Average;</span><br><span class="line">       }</span><br><span class="line">   }</span><br></pre></td></tr></tbody></table></figure>
+<p>   最后加上<strong>年份 1 到年底的天数</strong>，<strong>年份二月初到设置的日期天数</strong>且输出结果</p>
+   <figure class="highlight c++"><table><tbody><tr><td class="code"><pre><span class="line">result = result + storage_1 + storage_2;</span><br><span class="line"></span><br><span class="line"><span class="built_in">printf</span>(<span class="string">"%ld days apart"</span>, result);</span><br></pre></td></tr></tbody></table></figure></li>
+</ul>
+<h1 id="完整代码"><a href="#完整代码" class="headerlink" title="完整代码"></a>完整代码</h1><div class="note warning"><h4 id="注意"><a href="#注意" class="headerlink" title="注意"></a>注意</h4><p><strong>Warning</strong> 本代码使用了<em>子函数</em> , 且在 <em>vs 2019</em> 环境下进行编译运行</p>
+</div>
+<figure class="highlight c++"><table><tbody><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">define</span> _CRT_INTERNAL_SCANF_LEGACY_WIDE_SPECIFIERS  <span class="comment">//dev C++请删除该行</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> Otsuki 31</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> Satsuki 30</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> Group 1461<span class="comment">//1闰年+3平年</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> Leap 366</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> Average 365</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">menu</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>{</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">"Calculate the time difference between two dates."</span>);</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">operation</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>{</span><br><span class="line">    <span class="keyword">int</span> year_1, mouth_1, day_1, total_1, fab_1;</span><br><span class="line">    <span class="comment">// 年1 月1 日1 本年总天数 2月天数 </span></span><br><span class="line">    <span class="keyword">int</span> year_2, mouth_2, day_2, total_2, fab_2;</span><br><span class="line">    <span class="comment">// 年2 月2 日2 本年总天数 2月天数 </span></span><br><span class="line">    <span class="keyword">int</span> storage_1 = <span class="number">0</span>, storage_2 = <span class="number">0</span>;</span><br><span class="line">    <span class="comment">//记录第一年到年底天数，第二年到年初天数</span></span><br><span class="line">    <span class="keyword">long</span> count, result;</span><br><span class="line">    <span class="comment">// 两年间隔  间隔天数 </span></span><br><span class="line">    <span class="keyword">int</span> cycle = <span class="number">0</span>, remain = <span class="number">0</span>;</span><br><span class="line">    <span class="comment">//每4年循环组  余数 </span></span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"Please in put the first date:(Format:Year/Mouth/Day)\n"</span>);</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">"%d/%d/%d"</span>, &amp;year_1, &amp;mouth_1, &amp;day_1);</span><br><span class="line">    <span class="built_in">getchar</span>();</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"Please in put the second data:(Format:Year/Mouth/Day)\n"</span>);</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">"%d/%d/%d"</span>, &amp;year_2, &amp;mouth_2, &amp;day_2);</span><br><span class="line"></span><br><span class="line">    <span class="comment">//判断年1是否为闰年 </span></span><br><span class="line">    <span class="keyword">if</span> (year_1 % <span class="number">400</span> == <span class="number">0</span> || year_1 % <span class="number">4</span> == <span class="number">0</span> &amp;&amp; year_1 % <span class="number">100</span> != <span class="number">0</span>)</span><br><span class="line">    {</span><br><span class="line">        fab_1 = <span class="number">29</span>;</span><br><span class="line">        total_1 = <span class="number">366</span>;</span><br><span class="line">    }</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">    {</span><br><span class="line">        fab_1 = <span class="number">28</span>;</span><br><span class="line">        total_1 = <span class="number">365</span>;</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="comment">//判断年2是否为闰年 </span></span><br><span class="line">    <span class="keyword">if</span> (year_2 % <span class="number">400</span> == <span class="number">0</span> || year_2 % <span class="number">4</span> == <span class="number">0</span> &amp;&amp; year_2 % <span class="number">100</span> != <span class="number">0</span>)</span><br><span class="line">    {</span><br><span class="line">        fab_2 = <span class="number">29</span>;</span><br><span class="line">        total_2 = <span class="number">366</span>;</span><br><span class="line">    }</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">    {</span><br><span class="line">        fab_2 = <span class="number">28</span>;</span><br><span class="line">        total_2 = <span class="number">365</span>;</span><br><span class="line">    }</span><br><span class="line">    <span class="comment">//判断到年底剩余时间 </span></span><br><span class="line">    <span class="built_in"><span class="keyword">switch</span></span> (mouth_1)</span><br><span class="line">    {</span><br><span class="line">    <span class="keyword">case</span> <span class="number">12</span>:</span><br><span class="line">    <span class="keyword">case</span> <span class="number">11</span>:</span><br><span class="line">        storage_1 = storage_1 + Otsuki;</span><br><span class="line">    <span class="keyword">case</span> <span class="number">10</span>:</span><br><span class="line">        storage_1 = storage_1 + Satsuki;</span><br><span class="line">    <span class="keyword">case</span> <span class="number">9</span>:</span><br><span class="line">        storage_1 = storage_1 + Otsuki;</span><br><span class="line">    <span class="keyword">case</span> <span class="number">8</span>:</span><br><span class="line">        storage_1 = storage_1 + Otsuki;</span><br><span class="line">    <span class="keyword">case</span> <span class="number">7</span>:</span><br><span class="line">        storage_1 = storage_1 + Satsuki;</span><br><span class="line">    <span class="keyword">case</span> <span class="number">6</span>:</span><br><span class="line">        storage_1 = storage_1 + Otsuki;</span><br><span class="line">    <span class="keyword">case</span> <span class="number">5</span>:</span><br><span class="line">        storage_1 = storage_1 + Satsuki;</span><br><span class="line">    <span class="keyword">case</span> <span class="number">4</span>:</span><br><span class="line">        storage_1 = storage_1 + Otsuki;</span><br><span class="line">    <span class="keyword">case</span> <span class="number">3</span>:</span><br><span class="line">        storage_1 = storage_1 + fab_1;</span><br><span class="line">    <span class="keyword">case</span> <span class="number">2</span>:</span><br><span class="line">        storage_1 = storage_1 + Otsuki;</span><br><span class="line">    <span class="keyword">case</span> <span class="number">1</span>:</span><br><span class="line">        storage_1 = storage_1 + day_1;</span><br><span class="line">        storage_1 = total_1 - storage_1;</span><br><span class="line">    }</span><br><span class="line">    <span class="comment">//判断到年初有几天 </span></span><br><span class="line">    <span class="built_in"><span class="keyword">switch</span></span> (mouth_2)</span><br><span class="line">    {</span><br><span class="line">    <span class="keyword">case</span> <span class="number">12</span>:</span><br><span class="line">    <span class="keyword">case</span> <span class="number">11</span>:</span><br><span class="line">        storage_2 = storage_2 + Otsuki;</span><br><span class="line">    <span class="keyword">case</span> <span class="number">10</span>:</span><br><span class="line">        storage_2 = storage_2 + Satsuki;</span><br><span class="line">    <span class="keyword">case</span> <span class="number">9</span>:</span><br><span class="line">        storage_2 = storage_2 + Otsuki;</span><br><span class="line">    <span class="keyword">case</span> <span class="number">8</span>:</span><br><span class="line">        storage_2 = storage_2 + Otsuki;</span><br><span class="line">    <span class="keyword">case</span> <span class="number">7</span>:</span><br><span class="line">        storage_2 = storage_2 + Satsuki;</span><br><span class="line">    <span class="keyword">case</span> <span class="number">6</span>:</span><br><span class="line">        storage_2 = storage_2 + Otsuki;</span><br><span class="line">    <span class="keyword">case</span> <span class="number">5</span>:</span><br><span class="line">        storage_2 = storage_2 + Satsuki;</span><br><span class="line">    <span class="keyword">case</span> <span class="number">4</span>:</span><br><span class="line">        storage_2 = storage_2 + Otsuki;</span><br><span class="line">    <span class="keyword">case</span> <span class="number">3</span>:</span><br><span class="line">        storage_2 = storage_2 + fab_2;</span><br><span class="line">    <span class="keyword">case</span> <span class="number">2</span>:</span><br><span class="line">        storage_2 = storage_2 + Otsuki;</span><br><span class="line">    <span class="keyword">case</span> <span class="number">1</span>:</span><br><span class="line">        storage_2 = storage_2 + day_2;</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> (count = year_2 - year_1 - <span class="number">1</span>; count &lt; <span class="number">4</span>; year_1++)</span><br><span class="line">    {</span><br><span class="line">        <span class="keyword">if</span> (year_1 == year_2)</span><br><span class="line">        {</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        }</span><br><span class="line">        <span class="keyword">if</span> (year_1 % <span class="number">400</span> == <span class="number">0</span> || year_1 % <span class="number">4</span> == <span class="number">0</span> &amp;&amp; year_1 % <span class="number">100</span> != <span class="number">0</span>)</span><br><span class="line">        {</span><br><span class="line">            result = result + Leap;</span><br><span class="line">        }</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">        {</span><br><span class="line">            result = result + Average;</span><br><span class="line">        }</span><br><span class="line"></span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (count &gt;= <span class="number">4</span>)</span><br><span class="line">    {</span><br><span class="line">        cycle = count / <span class="number">4</span>;</span><br><span class="line">        remain = count % <span class="number">4</span>;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"%d,%d,%d,%d\n"</span>, cycle, remain, storage_1, storage_2);</span><br><span class="line">        <span class="keyword">if</span> (year_2 % <span class="number">400</span> == <span class="number">0</span> || year_2 % <span class="number">4</span> == <span class="number">0</span> &amp;&amp; year_2 % <span class="number">100</span> != <span class="number">0</span>)</span><br><span class="line">        {</span><br><span class="line">            <span class="keyword">if</span> (remain - <span class="number">1</span> &gt; <span class="number">0</span>)</span><br><span class="line">            {</span><br><span class="line">                result = cycle * Group + (remain - <span class="number">1</span>) * Average + Leap;</span><br><span class="line">            }</span><br><span class="line">            <span class="keyword">else</span></span><br><span class="line">            {</span><br><span class="line">                result = cycle * Group + Leap;</span><br><span class="line">            }</span><br><span class="line">        }</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">        {</span><br><span class="line">            result = cycle * Group + remain * Average;</span><br><span class="line">        }</span><br><span class="line">    }</span><br><span class="line">    </span><br><span class="line">    result = result + storage_1 + storage_2;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"%ld days apart"</span>, result);</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>{</span><br><span class="line">	<span class="built_in">menu</span>();</span><br><span class="line">	<span class="built_in">getchar</span>();</span><br><span class="line">    <span class="built_in">operation</span>();</span><br><span class="line"></span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">}    </span><br></pre></td></tr></tbody></table></figure>
 
-<p>homework</p>
-<pre><code> #define _CRT_INTERNAL_SCANF_LEGACY_WIDE_SPECIFIERS 
- #include&lt;stdio.h&gt;
- #define Otsuki 31
- #define Satsuki 30
- #define Group 1,826//1闰年+3平年
- //#define L_Feb 29
- //#define A_Feb 28
- //#define Leap 366
- //#define Average 365
- 
- void menu()
- {
-     printf("Calculate the time difference between two dates.");
- }
- 
- int operation()
- {
-     int year_1, mouth_1, day_1, total_1, fab_1;
-     int year_2, mouth_2, day_2, total_2, fab_2;
-     int storange_1 = 0,storange_2=0;//记录第一年到年底天数，第二年到年初天数
-     printf("Please in put the first date:(Format:Year/Mouth/Day)");
-     scanf("&amp;d/&amp;d/&amp;d", &amp;year_1, &amp;mouth_1, &amp;day_1);
-     getchar();
-     printf("Please in put the second data:(Format:Year/Mouth/Day)");
-     scanf("&amp;d/&amp;d/&amp;d", &amp;year_2, &amp;mouth_2, &amp;day_2);
-     getchar();
- 
-     if (year_1 % 400 == 0 || year_1 % 4 == 0 &amp;&amp; year_1 % 100 != 0)
-     {
-         fab_1 = 29;
-         total_1 = 366;
-     }
-     else
-     {
-         fab_1 = 28;
-         total_1 = 365;
-     }
- 
-     if (year_2 % 400 == 0 || year_2 % 4 == 0 &amp;&amp; year_2 % 100 != 0)
-     {
-         fab_2 = 29;
-         total_2 = 366;
-     }
-     else
-     {
-         fab_2 = 28;
-         total_2 = 365;
-     }
- 
-     switch (mouth_1)
-     {
-     case 12:
-     case 11:
-         storange_1 = storange_1 + Otsuki;
-     case 10:
-         storange_1 = storange_1 + Satsuki;
-     case 9:
-         storange_1 = storange_1 + Otsuki;
-     case 8:
-         storange_1 = storange_1 + Otsuki;
-     case 7:
-         storange_1 = storange_1 + Satsuki;
-     case 6:
-         storange_1 = storange_1 + Otsuki;
-     case 5:
-         storange_1 = storange_1 + Satsuki;
-     case 4:
-         storange_1 = storange_1 + Otsuki;
-     case 3:
-         storange_1 = storange_1 + fab_1;
-     case 2:
-         storange_1 = storange_1 + Otsuki;
-     case 1:
-         storange_1 = day_1;
-         storange_1 = total_1 - storange_1;
-     }
- 
-     switch (mouth_2)
-     {
-     case 12:
-     case 11:
-         storange_2 = storange_2 + Otsuki;
-     case 10:
-         storange_2 = storange_2 + Satsuki;
-     case 9:
-         storange_2 = storange_2 + Otsuki;
-     case 8:
-         storange_2 = storange_2 + Otsuki;
-     case 7:
-         storange_2 = storange_2 + Satsuki;
-     case 6:
-         storange_2 = storange_2 + Otsuki;
-     case 5:
-         storange_2 = storange_2 + Satsuki;
-     case 4:
-         storange_2 = storange_2 + Otsuki;
-     case 3:
-         storange_2 = storange_2 + fab_2;
-     case 2:
-         storange_2 = storange_2 + Otsuki;
-     case 1:
-         storange_2 = day_2;
-     }
-     
-     int count;
-     count = year_2 - year_1 - 1;
- 
- }
- 
- int main()
- {
-     menu();
-     getchar();
- 
-     return 0;
- }
-</code></pre>
+<h1 id="最后的话"><a href="#最后的话" class="headerlink" title="最后的话"></a>最后的话</h1><p> 首次写这种类型的博客，排版和解释可能不是很好，希望各位可以积极评论，留下你们的建议</p>
 ]]></content>
       <categories>
         <category>C/C++</category>
