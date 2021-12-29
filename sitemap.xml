@@ -2,9 +2,16 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>https://www.foreverempty.top/posts/64839/</loc>
+    <loc>https://www.foreverempty.top/posts/10092/</loc>
     
-    <lastmod>2021-10-10</lastmod>
+    <lastmod>2021-12-29</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://www.foreverempty.top/posts/50761/</loc>
+    
+    <lastmod>2021-12-29</lastmod>
     
   </url>
   
@@ -46,7 +53,7 @@
 
   <url>
     <loc>https://www.foreverempty.top/</loc>
-    <lastmod>2021-10-10</lastmod>
+    <lastmod>2021-12-29</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
@@ -54,14 +61,14 @@
   
   <url>
     <loc>https://www.foreverempty.top/tags/%E4%BD%9C%E4%B8%9A/</loc>
-    <lastmod>2021-10-10</lastmod>
+    <lastmod>2021-12-29</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://www.foreverempty.top/tags/%E6%AC%A2%E8%BF%8E/</loc>
-    <lastmod>2021-10-10</lastmod>
+    <lastmod>2021-12-29</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
@@ -70,14 +77,14 @@
   
   <url>
     <loc>https://www.foreverempty.top/categories/C-C/</loc>
-    <lastmod>2021-10-10</lastmod>
+    <lastmod>2021-12-29</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://www.foreverempty.top/categories/%E6%AC%A2%E8%BF%8E/</loc>
-    <lastmod>2021-10-10</lastmod>
+    <lastmod>2021-12-29</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>

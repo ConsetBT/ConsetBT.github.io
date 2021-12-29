@@ -1,58 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>C 语言基础函数语法</title>
-    <url>/posts/64839/</url>
-    <content><![CDATA[<div class="note warning"><h4 id="注意"><a href="#注意" class="headerlink" title="注意"></a>注意</h4><p><strong>Warning</strong> 该语句解释并不专业，仅可作为简单了解</p>
-</div>
-
-<span id="more"></span>
-
-<h1 id="声明"><a href="#声明" class="headerlink" title="声明"></a>声明</h1><figure class="highlight c++"><table><tbody><tr><td class="code"><pre><span class="line"><span class="keyword">int</span> num;</span><br></pre></td></tr></tbody></table></figure>
-<p>这行代码叫做声明，其中 int 是 C 语言中的一个<strong>关键字 (<em>keyword</em>)</strong> , 表示一种基本的 C 语言数据类型。num 是一个<strong>标识符 (<em>identifier</em>)</strong> , 是一个变量、函数或其他实体名称。<br>在 C 语言中所有变量<strong>必须</strong>先声明才能使用。</p>
-<p>数据类型有一下几种</p>
-<table>
-<thead>
-<tr>
-<th>类型</th>
-<th>名称</th>
-<th>示例</th>
-</tr>
-</thead>
-<tbody><tr>
-<td> int</td>
-<td> 整型</td>
-<td> 32</td>
-</tr>
-<tr>
-<td>long</td>
-<td> 长整型</td>
-<td> 45675788633</td>
-</tr>
-<tr>
-<td>long long</td>
-<td>64 位长整型</td>
-<td> 7235464668890800967</td>
-</tr>
-<tr>
-<td>float</td>
-<td> 浮点型</td>
-<td> 5.7</td>
-</tr>
-<tr>
-<td>double</td>
-<td> 双浮点型</td>
-<td> 177899.675674567</td>
-</tr>
-<tr>
-<td>char</td>
-<td> 字符型</td>
-<td> a</td>
-</tr>
-</tbody></table>
-]]></content>
-  </entry>
-  <entry>
     <title>计算跨年两日期相隔天数</title>
     <url>/posts/5775/</url>
     <content><![CDATA[<blockquote>
@@ -139,5 +87,88 @@
       <tags>
         <tag>欢迎</tag>
       </tags>
+  </entry>
+  <entry>
+    <title>猴子选大王</title>
+    <url>/posts/50761/</url>
+    <content><![CDATA[<blockquote>
+<p>本题来自 c 语言期末考试</p>
+</blockquote>
+<span id="more"></span>
+
+<div class="note warning"><h4 id="注意"><a href="#注意" class="headerlink" title="注意"></a>注意</h4><p><strong>Warning</strong> 解法不唯一，仅讲述自己的想法</p>
+</div>
+
+
+<h1 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h1><p>一群猴子要选新猴王。新猴王的选择方法是：让 N 只候选猴子围成一圈，从某位置起顺序编号为 1~N 号。从第 1 号开始报数，从 1 报到 m，凡报到 m 的猴子即退出圈子，接着又从紧邻的上一只猴子开始逆序报数，从 1 报到 k，凡报到 k 的猴子即退出圈子，接着冲紧邻的下一只猴子开始正序报数。如此不断循环，最后剩下的一只猴子就选为猴王。请问是原来第几号猴子当选猴王？</p>
+<h2 id="输入格式："><a href="#输入格式：" class="headerlink" title="输入格式："></a>输入格式：</h2><p>在一行分别输入 n,m,k（≤200）。</p>
+<h2 id="输出格式："><a href="#输出格式：" class="headerlink" title="输出格式："></a>输出格式：</h2><p>在一行中输出当选猴王的编号。</p>
+<h2 id="输入样例："><a href="#输入样例：" class="headerlink" title="输入样例："></a>输入样例：</h2><figure class="highlight c++"><table><tbody><tr><td class="code"><pre><span class="line"><span class="number">8</span> <span class="number">2</span> <span class="number">5</span></span><br><span class="line">结尾无空行</span><br></pre></td></tr></tbody></table></figure>
+
+<h2 id="输出样例："><a href="#输出样例：" class="headerlink" title="输出样例："></a>输出样例：</h2><figure class="highlight c++"><table><tbody><tr><td class="code"><pre><span class="line"><span class="number">1</span></span><br><span class="line">结尾无空行</span><br></pre></td></tr></tbody></table></figure>
+
+<h1 id="问题解析"><a href="#问题解析" class="headerlink" title="问题解析"></a>问题解析</h1><h1 id="完整代码"><a href="#完整代码" class="headerlink" title="完整代码"></a>完整代码</h1><figure class="highlight c++"><table><tbody><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">define</span> _CRT_SECURE_NO_WARNINGS		<span class="comment">//Dev C++ 可以将本行删除</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> Max 200						<span class="comment">//定义最大的值</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">PrintArr</span><span class="params">(<span class="keyword">int</span> arr[], <span class="keyword">int</span> n)</span>		<span class="comment">//用于打印最终结果</span></span></span><br><span class="line"><span class="function"></span>{</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++)</span><br><span class="line">	{</span><br><span class="line">		<span class="keyword">if</span> (arr[i] == <span class="number">0</span>)			<span class="comment">//如果数组中数值为0，则继续循环，直到输出</span></span><br><span class="line">			<span class="keyword">continue</span>;</span><br><span class="line">		<span class="keyword">else</span></span><br><span class="line">			<span class="built_in">printf</span>(<span class="string">"%d"</span>, arr[i]);</span><br><span class="line">	}</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">King</span><span class="params">(<span class="keyword">int</span> arr[], <span class="keyword">int</span> num, <span class="keyword">int</span> pos_1, <span class="keyword">int</span> pos_2, <span class="keyword">int</span> n, <span class="keyword">int</span> m, <span class="keyword">int</span> k)</span></span></span><br><span class="line"><span class="function"></span>{</span><br><span class="line">	<span class="keyword">if</span> (num &gt; <span class="number">1</span>)</span><br><span class="line">	{</span><br><span class="line">		<span class="keyword">while</span> (num &gt; <span class="number">1</span>)				<span class="comment">//如果猴子数大于1则进行正循环</span></span><br><span class="line">		{</span><br><span class="line">			<span class="keyword">while</span> (arr[pos_2] == <span class="number">0</span> || pos_2 &gt;= n)	<span class="comment">//如果猴子已经退出或下标超出猴子总数则进行循环</span></span><br><span class="line">			{</span><br><span class="line">				<span class="keyword">if</span> (pos_2 &gt;= n)		<span class="comment">//下标超出猴子总数，下标移至开头</span></span><br><span class="line">				{</span><br><span class="line">					pos_2 = <span class="number">0</span>;</span><br><span class="line">				}</span><br><span class="line">				<span class="keyword">else</span>				<span class="comment">//猴子退出，下标移向下一位</span></span><br><span class="line">				{</span><br><span class="line">					pos_2++;</span><br><span class="line">				}</span><br><span class="line">			}</span><br><span class="line">			<span class="keyword">if</span> (pos_1 % m != <span class="number">0</span>)		<span class="comment">//猴子正序报数未到m，所报数+1，下标移向下一位</span></span><br><span class="line">			{</span><br><span class="line">				pos_1++;</span><br><span class="line">				pos_2++;</span><br><span class="line">			}</span><br><span class="line">			<span class="keyword">else</span>					<span class="comment">//猴子正序报数到m，所报数初始化为1，猴子退出，下标移向上一位，猴子数-1</span></span><br><span class="line">			{</span><br><span class="line">				pos_1 = <span class="number">1</span>;</span><br><span class="line">				arr[pos_2--] = <span class="number">0</span>;</span><br><span class="line">				num--;</span><br><span class="line">				<span class="keyword">break</span>;				<span class="comment">//跳出正序报数</span></span><br><span class="line">			}</span><br><span class="line">		}</span><br><span class="line">		<span class="keyword">while</span> (num &gt; <span class="number">1</span>)				<span class="comment">//如果猴子数大于1则进行逆循环</span></span><br><span class="line">		{</span><br><span class="line">			<span class="keyword">while</span> (arr[pos_2] == <span class="number">0</span> || pos_2 &lt; <span class="number">0</span>)	<span class="comment">//如果猴子已经退出，或下标&gt;0则进行循环</span></span><br><span class="line">			{</span><br><span class="line">				<span class="keyword">if</span> (pos_2 &lt; <span class="number">0</span>)		<span class="comment">//下标小于0，下标移至末尾</span></span><br><span class="line">				{</span><br><span class="line">					pos_2 = n - <span class="number">1</span>;</span><br><span class="line">				}</span><br><span class="line">				<span class="keyword">else</span>				<span class="comment">//猴子退出，下标移向上一位</span></span><br><span class="line">				{</span><br><span class="line">					pos_2--;</span><br><span class="line">				}</span><br><span class="line">			}</span><br><span class="line">			<span class="keyword">if</span> (pos_1 % k != <span class="number">0</span>)		<span class="comment">//猴子逆序报数未到k，所报数+1，下标移向上一位</span></span><br><span class="line">			{</span><br><span class="line">				pos_1++;</span><br><span class="line">				pos_2--;</span><br><span class="line">			}</span><br><span class="line">			<span class="keyword">else</span>					<span class="comment">//猴子逆序报数到k，所报数初始化为1，猴子退出，下标移向下一位，猴子数-1</span></span><br><span class="line">			{</span><br><span class="line">				pos_1 = <span class="number">1</span>;</span><br><span class="line">				arr[pos_2++] = <span class="number">0</span>;</span><br><span class="line">				num--;</span><br><span class="line">				<span class="keyword">break</span>;				<span class="comment">//跳出逆序报数</span></span><br><span class="line">			}</span><br><span class="line">		}</span><br><span class="line">		<span class="built_in">King</span>(arr, num, pos_1, pos_2, n, m, k);	<span class="comment">//递归寻找大王</span></span><br><span class="line">	}</span><br><span class="line">	<span class="keyword">else</span></span><br><span class="line">	{</span><br><span class="line">		<span class="built_in">PrintArr</span>(arr, n);						<span class="comment">//如果只剩一个猴子，输出结果</span></span><br><span class="line">	}</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>{</span><br><span class="line">	<span class="keyword">int</span> arr[Max] = { <span class="number">0</span> };						<span class="comment">//用于存放猴子编号的数组</span></span><br><span class="line">	<span class="keyword">int</span> n, m, k;								<span class="comment">//猴子数，正序报数截至，逆序报数截至</span></span><br><span class="line">	<span class="keyword">int</span> pos_1, pos_2;							<span class="comment">//所报数，编号数组下标</span></span><br><span class="line">	<span class="keyword">int</span> num;									<span class="comment">//猴子所剩数</span></span><br><span class="line">	<span class="built_in">scanf</span>(<span class="string">"%d %d %d"</span>, &amp;n, &amp;m, &amp;k);</span><br><span class="line">	<span class="keyword">if</span> (n &gt; <span class="number">1</span> &amp;&amp; n &lt; Max &amp;&amp; m &gt; <span class="number">1</span> &amp;&amp; m &lt; Max &amp;&amp; k &gt; <span class="number">1</span> &amp;&amp; k &lt; Max)</span><br><span class="line">	{</span><br><span class="line">		pos_1 = <span class="number">1</span>;</span><br><span class="line">		pos_2 = <span class="number">0</span>;</span><br><span class="line">		num = n;</span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++)				<span class="comment">//初始化猴子编号</span></span><br><span class="line">		{</span><br><span class="line">			arr[i] = i + <span class="number">1</span>;</span><br><span class="line">		}</span><br><span class="line">		<span class="built_in">King</span>(arr, num, pos_1, pos_2, n, m, k);	<span class="comment">//进行选大王</span></span><br><span class="line">	}</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>]]></content>
+  </entry>
+  <entry>
+    <title>日历生成</title>
+    <url>/posts/10092/</url>
+    <content><![CDATA[<p>一个简单的日历生成</p>
+<span id="more"></span>
+
+<p>今天属实是无聊，突发奇想想写个日历生成器，一开始主要是感觉不会太难，上手写才发现自己走了不少弯路，一直在绕圈圈（😓</p>
+<p>在写这个日历生成器一共想了想了 3 中办法，也是十分曲折的把他写完了</p>
+<p>首先我想到的是去用 <code>time.h</code> 中的 <code>time()</code> 函数去获取当前的时间戳，然后通过时间戳去换算当前的日期，然后获取当前是周几，之后与输入年份的 1 月 1 日进行计算，计算二者相差天数，得到输入年份 1 月 1 日为周几，再进行日历生成</p>
+<blockquote>
+<p>** <a href="https://baike.baidu.com/item/%E6%97%B6%E9%97%B4%E6%88%B3/6439235">时间戳 - 百度百科</a> **</p>
+</blockquote>
+<p>在查询相关资料的时候发现了 <code>time.h</code> 中有自带转换时间戳的函数 <code>localtime()</code></p>
+<ul>
+<li>描述</li>
+</ul>
+<p>C 库函数 <code>struct tm *localtime(const time_t *timer)</code> 使用 <code>timer</code> 的值来填充 <code>tm</code> 结构。<code>timer</code> 的值被分解为 tm 结构，并用本地时区表示。</p>
+<ul>
+<li>声明</li>
+</ul>
+<p>下面是 <code>localtime()</code> 函数的声明。</p>
+<p><code>struct tm *localtime(const time_t *timer)</code></p>
+<ul>
+<li>参数</li>
+</ul>
+<p><code>timer</code> – 这是指向表示日历时间的 <code>time_t</code> 值的指针。<br>返回值<br>该函数返回指向 <code>tm</code> 结构的指针，该结构带有被填充的时间信息。下面是 <code>tm</code> 结构的细节：</p>
+<figure class="highlight c++"><table><tbody><tr><td class="code"><pre><span class="line">   <span class="class"><span class="keyword">struct</span> <span class="title">tm</span> {</span></span><br><span class="line">  	<span class="keyword">int</span> tm_sec;         <span class="comment">/* 秒，范围从 0 到 59                */</span></span><br><span class="line">  	<span class="keyword">int</span> tm_min;         <span class="comment">/* 分，范围从 0 到 59                */</span></span><br><span class="line">  	<span class="keyword">int</span> tm_hour;        <span class="comment">/* 小时，范围从 0 到 23                */</span></span><br><span class="line">  	<span class="keyword">int</span> tm_mday;        <span class="comment">/* 一月中的第几天，范围从 1 到 31                    */</span></span><br><span class="line">  	<span class="keyword">int</span> tm_mon;         <span class="comment">/* 月份，范围从 0 到 11                */</span></span><br><span class="line">  	<span class="keyword">int</span> tm_year;        <span class="comment">/* 自 1900 起的年数                */</span></span><br><span class="line">  	<span class="keyword">int</span> tm_wday;        <span class="comment">/* 一周中的第几天，范围从 0 到 6                */</span></span><br><span class="line">  	<span class="keyword">int</span> tm_yday;        <span class="comment">/* 一年中的第几天，范围从 0 到 365                    */</span></span><br><span class="line">  	<span class="keyword">int</span> tm_isdst;       <span class="comment">/* 夏令时                        */</span>    </span><br><span class="line">};</span><br></pre></td></tr></tbody></table></figure>
+<ul>
+<li>实例</li>
+</ul>
+<p>下面的实例演示了 <code>localtime()</code> 函数的用法。</p>
+<ul>
+<li>实例 </li>
+</ul>
+<figure class="highlight c++"><table><tbody><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;time.h&gt;</span></span></span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span> <span class="params">()</span></span></span><br><span class="line"><span class="function"></span>{</span><br><span class="line">   <span class="keyword">time_t</span> rawtime;</span><br><span class="line">   <span class="class"><span class="keyword">struct</span> <span class="title">tm</span> *<span class="title">info</span>;</span></span><br><span class="line">   <span class="keyword">char</span> buffer[<span class="number">80</span>];</span><br><span class="line"> </span><br><span class="line">   <span class="built_in">time</span>( &amp;rawtime );</span><br><span class="line"> </span><br><span class="line">   info = <span class="built_in">localtime</span>( &amp;rawtime );</span><br><span class="line">   <span class="built_in">printf</span>(<span class="string">"当前的本地时间和日期：%s"</span>, <span class="built_in">asctime</span>(info));</span><br><span class="line"> </span><br><span class="line">   <span class="keyword">return</span>(<span class="number">0</span>);</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<p>让我们编译并运行上面的程序，这将产生以下结果：</p>
+<pre><code>当前的本地时间和日期：Thu Aug 23 09:12:05 2012
+</code></pre>
+<blockquote>
+<p><strong><a href="https://www.runoob.com/cprogramming/c-function-localtime.html">localtime()</a></strong></p>
+</blockquote>
+<p>之后还发现可以直接通过日期来获取当前为周几，用到的是 <strong>基姆拉尔森计算公式 </strong> </p>
+<figure class="highlight c++"><table><tbody><tr><td class="code"><pre><span class="line">W= (d+<span class="number">2</span>*m+<span class="number">3</span>*(m+<span class="number">1</span>)/<span class="number">5</span>+y+y/<span class="number">4</span>-y/<span class="number">100</span>+y/<span class="number">400</span>+<span class="number">1</span>)%<span class="number">7</span> </span><br></pre></td></tr></tbody></table></figure>
+<div class="note warning"><pre><code>    #### 注意
+    **Warning** 在公式中有个与其他公式不同的地方：
+</code></pre>
+<p>把一月和二月看成是上一年的十三月和十四月，例：如果是 2004-1-10 则换算成：2003-13-10 来代入公式计算。</p>
+</div>
+
+
+<blockquote>
+<p><strong><a href="https://baike.baidu.com/item/%E5%9F%BA%E5%A7%86%E6%8B%89%E5%B0%94%E6%A3%AE%E8%AE%A1%E7%AE%97%E5%85%AC%E5%BC%8F/713396">基姆拉尔森计算公式 - 百度百科</a></strong></p>
+</blockquote>
+<p>之后我居然想的是获取当前时间然后再获取当前为周几，然后再去换算输入日期为周几（想明白后发现自己太傻了）</p>
+<p>之后吃饭的时候突然想到直接拿输入的年份去得当天为周几不久完了吗</p>
+<p>饭后直接着手开始写了</p>
+<p>写了大概 1H，也算是完成了（😓</p>
+<figure class="highlight c++"><table><tbody><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;time.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> Otsuki 31</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> Satsuki 30</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> LeapFeb 29</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> CommonFeb 28</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Printcalender</span><span class="params">(<span class="keyword">int</span> M, <span class="keyword">int</span> leap, <span class="keyword">int</span> W)</span></span></span><br><span class="line"><span class="function"></span>{</span><br><span class="line">	<span class="keyword">int</span> D = <span class="number">1</span>;</span><br><span class="line">	<span class="keyword">int</span> max;</span><br><span class="line">	<span class="keyword">int</span> size;</span><br><span class="line">	<span class="keyword">char</span>* head[] = { <span class="string">"Mon"</span>, <span class="string">"Tue"</span>, <span class="string">"Wed"</span>, <span class="string">"Thu"</span>, <span class="string">"Fri"</span>, <span class="string">"Sat"</span>, <span class="string">"Sun"</span> };</span><br><span class="line">	<span class="built_in"><span class="keyword">switch</span></span> (M)</span><br><span class="line">	{</span><br><span class="line">	<span class="keyword">case</span> <span class="number">1</span>:</span><br><span class="line">	<span class="keyword">case</span> <span class="number">3</span>:</span><br><span class="line">	<span class="keyword">case</span> <span class="number">5</span>:</span><br><span class="line">	<span class="keyword">case</span> <span class="number">7</span>:</span><br><span class="line">	<span class="keyword">case</span> <span class="number">8</span>:</span><br><span class="line">	<span class="keyword">case</span> <span class="number">10</span>:</span><br><span class="line">	<span class="keyword">case</span> <span class="number">12</span>:</span><br><span class="line">		max = Otsuki;</span><br><span class="line">		<span class="keyword">break</span>;</span><br><span class="line">	<span class="keyword">case</span> <span class="number">4</span>:</span><br><span class="line">	<span class="keyword">case</span> <span class="number">6</span>:</span><br><span class="line">	<span class="keyword">case</span> <span class="number">9</span>:</span><br><span class="line">	<span class="keyword">case</span> <span class="number">11</span>:</span><br><span class="line">		max = Satsuki;</span><br><span class="line">		<span class="keyword">break</span>;</span><br><span class="line">	<span class="keyword">case</span> <span class="number">2</span>:</span><br><span class="line">		<span class="keyword">if</span> (leap)</span><br><span class="line">		{</span><br><span class="line">			max = LeapFeb;</span><br><span class="line">		}</span><br><span class="line">		<span class="keyword">else</span></span><br><span class="line">		{</span><br><span class="line">			max = CommonFeb;</span><br><span class="line">		}</span><br><span class="line">		<span class="keyword">break</span>;</span><br><span class="line">	<span class="keyword">default</span>:</span><br><span class="line">		<span class="keyword">break</span>;</span><br><span class="line">	}</span><br><span class="line">	size = (max + W) / <span class="number">7</span>;</span><br><span class="line">	<span class="keyword">if</span> ((max + W) % <span class="number">7</span>)</span><br><span class="line">	{</span><br><span class="line">		size++;</span><br><span class="line">	}</span><br><span class="line">	<span class="built_in">putchar</span>(<span class="string">'\n'</span>);</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">7</span>; i++)</span><br><span class="line">	{</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">" %s"</span>,head[i]);</span><br><span class="line">	}</span><br><span class="line">	<span class="built_in">putchar</span>(<span class="string">'\n'</span>);</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; size; i++)</span><br><span class="line">	{</span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; <span class="number">7</span>; j++)</span><br><span class="line">		{</span><br><span class="line">			<span class="keyword">if</span> (j == W)</span><br><span class="line">			{</span><br><span class="line">				<span class="keyword">if</span> (D &lt;= max)</span><br><span class="line">				{</span><br><span class="line">					<span class="keyword">if</span> (W &lt; <span class="number">6</span>)</span><br><span class="line">						W = j + <span class="number">1</span>;</span><br><span class="line">					<span class="keyword">else</span></span><br><span class="line">						W = <span class="number">0</span>;</span><br><span class="line">					<span class="built_in">printf</span>(<span class="string">"%4.d"</span>, D);</span><br><span class="line">					D++;</span><br><span class="line">				}</span><br><span class="line">				<span class="keyword">else</span></span><br><span class="line">				{</span><br><span class="line">					<span class="keyword">break</span>;</span><br><span class="line">				}</span><br><span class="line">			}</span><br><span class="line">			<span class="keyword">else</span></span><br><span class="line">			{</span><br><span class="line">				<span class="built_in">printf</span>(<span class="string">"    "</span>);</span><br><span class="line">			}</span><br><span class="line">		}</span><br><span class="line">		<span class="built_in">putchar</span>(<span class="string">'\n'</span>);</span><br><span class="line">	}</span><br><span class="line">	<span class="built_in">putchar</span>(<span class="string">'\n'</span>);</span><br><span class="line">	<span class="keyword">if</span> (M &lt; <span class="number">12</span>)</span><br><span class="line">	{</span><br><span class="line">		M++;</span><br><span class="line">		<span class="built_in">Printcalender</span>(M, leap, W);</span><br><span class="line">	}</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Calender</span><span class="params">(<span class="keyword">int</span> year)</span></span></span><br><span class="line"><span class="function"></span>{</span><br><span class="line">	<span class="keyword">int</span> W = (<span class="number">1</span> + <span class="number">2</span> * <span class="number">13</span> + <span class="number">3</span> * (<span class="number">13</span> + <span class="number">1</span>) / <span class="number">5</span> + (year - <span class="number">1</span>) + (year - <span class="number">1</span>) / <span class="number">4</span> - (year - <span class="number">1</span>) / <span class="number">100</span> + (year - <span class="number">1</span>) / <span class="number">400</span>) % <span class="number">7</span>;</span><br><span class="line">	<span class="keyword">int</span> M = <span class="number">1</span>;</span><br><span class="line">	<span class="keyword">int</span> leap;</span><br><span class="line">	<span class="keyword">if</span> (year % <span class="number">400</span> == <span class="number">0</span> || year % <span class="number">4</span> == <span class="number">0</span> &amp;&amp; year % <span class="number">100</span> != <span class="number">0</span>)</span><br><span class="line">	{</span><br><span class="line">		leap = <span class="number">1</span>;</span><br><span class="line">	}</span><br><span class="line">	<span class="keyword">else</span></span><br><span class="line">	{</span><br><span class="line">		leap = <span class="number">0</span>;</span><br><span class="line">	}</span><br><span class="line">	<span class="built_in">Printcalender</span>(M, leap, W);</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>{</span><br><span class="line">	<span class="keyword">int</span> year;</span><br><span class="line">	<span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;year);</span><br><span class="line">	<span class="built_in">Calender</span>(year);</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>]]></content>
+      <categories>
+        <category>C/C++</category>
+      </categories>
   </entry>
 </search>
