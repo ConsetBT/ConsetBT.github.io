@@ -60,6 +60,28 @@
       </tags>
   </entry>
   <entry>
+    <title>数组类比结构体</title>
+    <url>/posts/60589/</url>
+    <content><![CDATA[<blockquote>
+<p>个人对于一个解题方法的简单总结，以下皆为个人观点</p>
+</blockquote>
+<span id="more"></span>
+
+<p>本总结在散步时无聊总结的，主要是对之前在 <strong>PTA</strong> 所作的题和网上所查的其他做法的一个总结与反思。</p>
+<p>PTA 原题大概为统计一段数中每个数的数量。</p>
+<p>起初我对本题的第一想法是使用结构体进行解决。结构体中包括两个 <code>int</code> 型的变量 <code>D</code> 和 <code>M</code>，分别用来储存<strong>数</strong>与<strong>该数出现的次数</strong>，但是在后来查看其他人做法时，发现采用了数组的方法，散步时，我便进行反思，这个数组用法本质不就是一种结构体吗。</p>
+<p>在所查的方法中，他们定义了一个 <code>num[10]</code> 的数组，用来储存每个数出现的次数。其中 <code>10</code> 正好对应了要统计的 10 个数 <code>0</code> <code>1</code> <code>2</code> <code>3</code> <code>4</code> <code>5</code> <code>6</code> <code>7</code> <code>8</code> <code>9</code>。仔细观察还会发现，我们所统计的数，可以正好与数组的下标进行对应，就类似与我所创建的结构体中的 <code>D</code>，同时该数组 <code>num[i]</code> 就类似与 <code>M</code>。综上来看，这个数组就类似与一个可以储存两种数据的结构体。</p>
+<p>这时，可能会有其他问题，既然如此那他就只能统计数字吗。</p>
+<p>其实并非如此，也可以对字符进行统计，因为字符可以转换为 <strong>ASCII 码</strong>。比如我想要统计一篇文章中的各个小写字母的数量，那我们便可以定义一个 <code>num[24]</code> 的数组。</p>
+<p>那我们如何做到各小写字母与数组下标对应呢，我们去让 <code>a</code> 与下标 <code>0</code> 对应，<code>z</code> 与下标 <code>23</code> 对应，这样的话我们就可以让所有小写字母的 <strong>ASCII 码</strong> 减去 <code>a</code> 的 <strong>ASCII 码</strong>。</p>
+<p>例如</p>
+<figure class="highlight c++"><table><tbody><tr><td class="code"><pre><span class="line"><span class="string">'a'</span> - <span class="string">'a'</span> = <span class="number">0</span></span><br><span class="line"><span class="string">'b'</span> - <span class="string">'a'</span> = <span class="number">1</span></span><br><span class="line">...</span><br></pre></td></tr></tbody></table></figure>
+
+<p>这个方法的对于统计连续的数据十分方便，并且与结构体相比可以节省部分空间，但是处理非连续的数据，可能就会造成空间的浪费或者无法处理。</p>
+<p>总之，在处理问题上也是一种不错的解决方法。</p>
+]]></content>
+  </entry>
+  <entry>
     <title>新的诞生</title>
     <url>/posts/50110/</url>
     <content><![CDATA[<h1 id="本博客的诞生"><a href="#本博客的诞生" class="headerlink" title="本博客的诞生"></a>本博客的诞生</h1><p>这个博客说实话，多少有些来之不易，经过两天的坚持不懈、四处摸索，也是完成了这个博客的搭建</p>
@@ -119,7 +141,7 @@
 <p>在写这个日历生成器一共想了想了 3 中办法，也是十分曲折的把他写完了</p>
 <p>首先我想到的是去用 <code>time.h</code> 中的 <code>time()</code> 函数去获取当前的时间戳，然后通过时间戳去换算当前的日期，然后获取当前是周几，之后与输入年份的 1 月 1 日进行计算，计算二者相差天数，得到输入年份 1 月 1 日为周几，再进行日历生成</p>
 <blockquote>
-<p>** <a href="https://baike.baidu.com/item/%E6%97%B6%E9%97%B4%E6%88%B3/6439235">时间戳 - 百度百科</a> **</p>
+<p><strong><a href="https://baike.baidu.com/item/%E6%97%B6%E9%97%B4%E6%88%B3/6439235">时间戳 - 百度百科</a></strong></p>
 </blockquote>
 <p>在查询相关资料的时候发现了 <code>time.h</code> 中有自带转换时间戳的函数 <code>localtime()</code></p>
 <ul>
